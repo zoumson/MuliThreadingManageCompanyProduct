@@ -145,7 +145,7 @@ Command line arguments
 ./bin/server -h
 ```
 ```
-./Server [options]
+./bin/Server [options]
 [options]
 [M]	-m [Server Max Client]			Server maximum clients.
 [M]	-p [Server Port Number]		Server to connect Port Number.
@@ -153,11 +153,11 @@ Command line arguments
 ```
 * Dafault server port number: random available port from host, default maximum client is 5
    ```sh
-   ./server 
+   ./bin/server 
    ```
  * Self defined server port number and maximum clients: myPort, myClients 
    ```sh
-   ./server -p myPort -m myClients
+   ./bin/server -p myPort -m myClients
    ```
  * Server log for each client: `Client[1]_2021_07_19_02_40_50.txt`
 * Server log for each client
@@ -193,7 +193,7 @@ Command line arguments
 ```
 
 ```
-./Client [options]
+./bin/Client [options]
 [options]
 [M]	-i [Server IP]			Server to connect to digit IP address.
 [M]	-p [Server Port Number]		Server to connect to Port Number.
