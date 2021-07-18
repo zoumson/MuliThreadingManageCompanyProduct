@@ -160,8 +160,8 @@ Command line arguments
    ./server -p myPort -m myClients
    ```
  * Server log for each client: `Client[1]_2021_07_19_02_40_50.txt`
- * Server log for each client
-  ```
+* Server log for each client
+```
 [2021-07-19 02:40:53][Client 1] Name [zouma]
 [2021-07-19 02:41:00][Client 1] number of product type is [2]
 [2021-07-19 02:41:04][Client 1] Product name is [mango]
@@ -169,8 +169,8 @@ Command line arguments
 [2021-07-19 02:41:10][Client 1]Product [mango] Quantity[10] Unit Price[10.000000] Total Price[100.000000]
 [2021-07-19 02:41:16][Client 1] Product name is [you]
 [2021-07-19 02:41:21][Client 1] Product quantity is [2]
-
- * Server historic for all client: `history.txt`
+```
+* Server historic for all client: `history.txt`
  ```
 [2021-07-19 02:40:53][Client 1] Name is [zouma]
 [2021-07-19 02:41:00][Client 1] number of product type is [2]
