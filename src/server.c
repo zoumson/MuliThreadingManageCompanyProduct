@@ -442,21 +442,22 @@ static void processClientCommand(int index)
 	//customer name 
 	while(1)
 	{
-			if( readIncomingMessageFromClient() == 0); break;
+			if( readIncomingMessageFromClient() == 0)break;
 	}	
 	char customerName[100];
+	strcpy(customerName, buffer);
 	char timeHistory[100];
 	getCurrentTimeForLog(timeHistory);
-    printf("[Client %d] Name is [%d]\n", index, customerName);
+    printf("[Client %d] Name is [%s]\n", index, customerName);
 	pthread_mutex_lock(&mutex);
-    fprintf(fph, "[%s][Client %d] Name is [%d]\n", timeHistory, index, customerName);
+    fprintf(fph, "[%s][Client %d] Name is [%s]\n", timeHistory, index, customerName);
 	pthread_mutex_unlock(&mutex);
-    fprintf(fpc, "[%s][Client %d] Name [%d]\n", timeHistory, index, customerName);	
+    fprintf(fpc, "[%s][Client %d] Name [%s]\n", timeHistory, index, customerName);	
 
 	//number of product type
 	while(1)
 	{
-			if( readIncomingMessageFromClient() == 0); break;
+			if( readIncomingMessageFromClient() == 0)break;
 	}
 	int totalProductType = atoi(buffer);
 	getCurrentTimeForLog(timeHistory);
@@ -564,7 +565,7 @@ static void PrintCommandLineOptions()
     printf("./Server [options]\n");
     printf("[options]\n");
     printf("[M]\t-m [Server Max Client]\t\t\tServer maximum clients.\n");
-    printf("[M]\t-p [Server Port Number]\t\tServer to connect to Port Number.\n");
+    printf("[M]\t-p [Server Port Number]\t\tServer to connect Port Number.\n");
     printf("[O]\t-h \t\t\t\tShow usage\n");
 }
 

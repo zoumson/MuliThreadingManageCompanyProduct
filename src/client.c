@@ -176,13 +176,14 @@ void makeCommand()
 
   	char str[128];
     printf("Please insert your name:\n");  	
-    scanf("%d", str);
-    printf("Customer name is [%d]:\n", str);
+    scanf("%s", str);
+    printf("Customer name is [%s]\n", str);
 	sendRequestToServer(str);
+	sleep(2);
     printf("Please insert the number of product type\n");
     int totalProductType = 0;
     scanf("%d", &totalProductType);
-    printf("Total number of product type is [%d]:\n", totalProductType);
+    printf("Total number of product type is [%d]\n", totalProductType);
     sprintf(str, "%d", totalProductType);
 	//Send the total number of product type to the server
 	sendRequestToServer(str);
