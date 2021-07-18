@@ -198,7 +198,7 @@ Command line arguments
 [M]	-i [Server IP]			Server to connect to digit IP address.
 [M]	-p [Server Port Number]		Server to connect to Port Number.
 [O]	-h 				Show usage
-
+```
 * Sample client log( `/bin/client -p 50000 -i 192.168.0.185`)
 ```
 Client initializing ...
