@@ -52,20 +52,21 @@
 <!-- [![Product Name Screen Shot][product-screenshot]](https://example.com) -->
 
 The goal of this mini-project is to develop a client server application
-allowing the stock management of a company. Each customer connects
-to the server, enter the name of the product (s) ordered, the quantities,
-and his name. The server displays the price of the order, and creates a file
+allowing the stock management of a company. 
+
+* Each customer connects to the server, enter the name of the product (s) ordered, the quantities,
+and his name. 
+* The server displays the price of the order, and creates a file
 whose name is unique (for example created according to the date) which
-contains the order data. The database is stored in
-a text file in which each line contains a product name (without
-space), and a unit price. Communication between customers and
-server is done through sockets. The processing by the server of
-Customer orders are done through threads; at each request
-client is associated with a thread. Customer order history must
-be saved in a text file.
+contains the order data. 
+* The database is stored in a text file in which each line contains a product name (without
+space), and a unit price. 
+* Communication between customers and server is done through sockets. 
+* The processing by the server of Customer orders are done through threads; at each request
+* client is associated with a thread. 
+* Customer order history must be saved in a text file.
 
 A list of commonly used resources that I find helpful are listed in the acknowledgements.
-
 ### Built With
 
 
@@ -82,209 +83,167 @@ This is an sample code of how to implement a single server mutilple clients comm
 <br>
 To get a local copy up and running follow these simple steps.
 
+## File Structure
+
+### Folders
+
+* [include/](include/): c++ declarations.
+* [resource/](resource/): images.
+* [src/](src/): c++ definitions.
+
+
+### Entire Files Structure 
+
+```
+.
+├── CMakeLists.txt
+├── include
+├── README.md
+├── resource
+│   └── price.txt
+└── src
+    ├── client.c
+    └── server.c
+
+3 directories, 5 files
+
+```
+
 ### Prerequisites
 
 This is an example of how to list things you need to use the software and how to install them.
-* tree
-  ```sh
-  sudo apt-get install tree
-  ```
 * cmake
   ```sh
   sudo apt-get install cmake
   ```
- * CPP standard: `CMAKE_CXX_STANDARD 17`
 
-* [boost](https://stackoverflow.com/questions/8430332/uninstall-boost-and-install-another-version)
-  ```sh
-  cd /opt
-  mkdir boost
-  sudo apt-get -y install build-essential g++ python-dev autotools-dev libicu-dev libbz2-dev
-  wget http://downloads.sourceforge.net/project/boost/boost/1.76.0/boost_1_76_0.tar.gz
-  tar -zxvf boost_1_76_0.tar.gz
-  cd boost_1_76_0
-  # get the no of cpucores to make faster
-  cpuCores=`cat /proc/cpuinfo | grep "cpu cores" | uniq | awk '{print $NF}'`
-  echo "Available CPU cores: "$cpuCores
-  ./bootstrap.sh  # this will generate ./b2
-  sudo ./b2 --with=all -j $cpuCores install
-  ```
- * Check boost version
-  ```sh
-  cat /usr/local/include/boost/version.hpp | grep "BOOST_LIB_VERSION"
-  ```
- * Result
-  ```sh
-  // BOOST_LIB_VERSION must be defined to be the same as BOOST_VERSION
-  #define BOOST_LIB_VERSION "1_76_0"
-  ```
-  
 ### Installation
 
 1. Clone the repo
    ```sh
-   git clone https://github.com/zoumson/Multi-ClientServer.git
+   git clone https://github.com/zoumson/MuliThreadingManageCompanyProduct.git
    ```
-2. Go to build
+2. Go to the project directory source
    ```sh
-   cd ./build
+   cd MuliThreadingManageCompanyProduct
    ```
-3. Clear the folder `build`
+3. Create empty directories 
    ```sh
-   rm -r *
+   mkdir build &&  mkdir bin 
    ```
-4. Make sure `build` folder is empty, only `.gitignore` there is fine
-* Command 
+5. Generate the executables and move them to `bin`
    ```sh
-   tree -L 1
+   cd build && cmake .. && make -j4 && cd ..
    ```
-* Expected result
-   ```sh
-    .
-
-    0 directories, 0 files
-   ```
-5. Then run the cmake file to generate the makefile
-   ```sh
-   cmake ..
-   ```
-6. Finally run the makefile to generate the executable `server` and `client`
-   ```sh
-   make
-   ```
-
 
 <!-- USAGE EXAMPLES -->
 ## Usage
 Command line arguments
 <br>
 1.  Sever side 
-
-* Command parser using [boost program_options](https://www.boost.org/doc/libs/1_76_0/doc/html/program_options.html)
-
 ```
-Usage: options_description [options]
-Allowed options:
-  -h [ --help ]                         produce help message
-  -p [ --port ] [=arg(=60000)] (=no)    server port number.
-  -c [ --connexion ] [=arg(=10)] (=few) server max connexion.
-
+./bin/server -h
 ```
-* Dafaut server port number: random available port from host
+```
+./Server [options]
+[options]
+[M]	-m [Server Max Client]			Server maximum clients.
+[M]	-p [Server Port Number]		Server to connect Port Number.
+[O]	-h 				Show usage
+```
+* Dafault server port number: random available port from host, default maximum client is 5
    ```sh
    ./server 
    ```
-* Implicit server port number: 60000
+ * Self defined server port number and maximum clients: myPort, myClients 
    ```sh
-   ./server -p
+   ./server -p myPort -m myClients
    ```
- * Self defined server port number: myPort
-   ```sh
-   ./server -p myPort
-   ```
-  * Server log: `server.log`
-  * Sample server log
-  
-  
+ * Server log for each client: `Client[1]_2021_07_19_02_40_50.txt`
+ * Server log for each client
   ```
-  [2021-05-28 02:08:11]<6>: Server IP: [192.168.1.106]
-  [2021-05-28 02:08:11]<6>: Server max connexion: [5]
-  [2021-05-28 02:08:11]<6>: Creating a server socket ...
-  [2021-05-28 02:08:11]<6>: A client socket created
-  [2021-05-28 02:08:11]<6>: Binding to a local port ...
-  [2021-05-28 02:08:11]<6>: Bind success
-  [2021-05-28 02:08:11]<6>: Server Port Number: [60000]
-  [2021-05-28 02:08:11]<6>: Listenning to a new connexion...
-  [2021-05-28 02:08:11]<6>: A client connected to a server
-  [2021-05-28 02:08:11]<6>: Accepting a connexion...
-  [2021-05-28 02:08:42]<6>: Connexion accepted
-  [2021-05-28 02:08:42]<6>: Client IP: [192.168.1.106]
-  [2021-05-28 02:08:42]<6>: Client Port Number: [49034]
-  [2021-05-28 02:08:42]<6>: Accepting a connexion...
-  [2021-05-28 02:08:42]<6>: Time received from the client 6: 02:08:42
-  [2021-05-28 02:08:48]<6>: Time received from the client 6: 02:08:48
-  [2021-05-28 02:08:54]<6>: Time received from the client 6: 02:08:54
-  [2021-05-28 02:09:00]<6>: Time received from the client 6: 02:09:00
-  [2021-05-28 02:09:06]<6>: Time received from the client 6: 02:09:06
-  [2021-05-28 02:09:12]<6>: Time received from the client 6: 02:09:12
-  [2021-05-28 02:09:18]<6>: Connexion accepted
-  [2021-05-28 02:09:18]<6>: Client IP: [192.168.1.106]
-  [2021-05-28 02:09:18]<6>: Client Port Number: [49036]
-  [2021-05-28 02:09:18]<6>: Accepting a connexion...
-  [2021-05-28 02:09:18]<6>: Time received from the client 7: 02:09:18
-  [2021-05-28 02:09:18]<6>: Time received from the client 6: 02:09:18
-  [2021-05-28 02:09:24]<6>: Time received from the client 7: 02:09:24
-  [2021-05-28 02:09:24]<6>: Time received from the client 6: 02:09:24
-  [2021-05-28 02:09:30]<6>: Closing connexion with client: 7
-  [2021-05-28 02:09:30]<6>: A Server closing an accpeted connexion ...
-  [2021-05-28 02:09:30]<6>: Accepted connexion closed
-  [2021-05-28 02:09:30]<6>: Time received from the client 6: 02:09:30
-  [2021-05-28 02:09:36]<6>: Closing connexion with client: 6
-  [2021-05-28 02:09:36]<6>: A Server closing an accpeted connexion ...
-  [2021-05-28 02:09:36]<6>: Accepted connexion closed
-  ```
+[2021-07-19 02:40:53][Client 1] Name [zouma]
+[2021-07-19 02:41:00][Client 1] number of product type is [2]
+[2021-07-19 02:41:04][Client 1] Product name is [mango]
+[2021-07-19 02:41:10][Client 1] Product quantity is [10]
+[2021-07-19 02:41:10][Client 1]Product [mango] Quantity[10] Unit Price[10.000000] Total Price[100.000000]
+[2021-07-19 02:41:16][Client 1] Product name is [you]
+[2021-07-19 02:41:21][Client 1] Product quantity is [2]
+
+ * Server historic for all client: `history.txt`
+ ```
+[2021-07-19 02:40:53][Client 1] Name is [zouma]
+[2021-07-19 02:41:00][Client 1] number of product type is [2]
+[2021-07-19 02:41:04][Client 1] Product name is [mango]
+[2021-07-19 02:41:10][Client 1] Product quantity is [10]
+[2021-07-19 02:41:10][Client 1]Product [mango] Quantity[10] Unit Price[10.000000] Total Price[100.000000]
+[2021-07-19 02:41:16][Client 1] Product name is [you]
+[2021-07-19 02:41:21][Client 1] Product quantity is [2]
+[2021-07-19 02:41:21][Client 1]Product [you] does not exit in database
+[2021-07-19 02:44:13][Client 1] Name is [Ali]
+[2021-07-19 02:44:15][Client 1] number of product type is [1]
+[2021-07-19 02:44:19][Client 1] Product name is [tomato]
+[2021-07-19 02:44:25][Client 1] Product quantity is [20]
+[2021-07-19 02:44:25][Client 1]Product [tomato] Quantity[20] Unit Price[5.000000] Total Price[100.000000]
+ ```
 2.  Client side 
-* Command parser using [boost program_options](https://www.boost.org/doc/libs/1_76_0/doc/html/program_options.html)
-
 
 ```
-Usage: options_description [options]
-Allowed options:
-  -h [ --help ]         produce help message
-  -i [ --ip ] arg       server IP address
-  -p [ --port ] arg     server port number.
+/bin/client -h 
+```
 
 ```
-* Client log: `client.log`
-* Sample client log
-  ```
-  [2021-05-28 02:08:42]<6>: A Client sending a request ...
-  [2021-05-28 02:08:42]<6>: Request sent to a server
-  [2021-05-28 02:08:42]<6>: A Client receiving a response ...
-  [2021-05-28 02:08:42]<6>: Response from a server
-  [2021-05-28 02:08:42]<6>: sucess
-  [2021-05-28 02:08:48]<6>: A Client sending a request ...
-  [2021-05-28 02:08:48]<6>: Request sent to a server
-  [2021-05-28 02:08:48]<6>: A Client receiving a response ...
-  [2021-05-28 02:08:48]<6>: Response from a server
-  [2021-05-28 02:08:48]<6>: sucess
-  [2021-05-28 02:08:54]<6>: A Client sending a request ...
-  [2021-05-28 02:08:54]<6>: Request sent to a server
-  [2021-05-28 02:08:54]<6>: A Client receiving a response ...
-  [2021-05-28 02:08:54]<6>: Response from a server
-  [2021-05-28 02:08:54]<6>: sucess
-  [2021-05-28 02:09:00]<6>: A Client sending a request ...
-  [2021-05-28 02:09:00]<6>: Request sent to a server
-  [2021-05-28 02:09:00]<6>: A Client receiving a response ...
-  [2021-05-28 02:09:00]<6>: Response from a server
-  [2021-05-28 02:09:00]<6>: sucess
-  [2021-05-28 02:09:06]<6>: A Client sending a request ...
-  [2021-05-28 02:09:06]<6>: Request sent to a server
-  [2021-05-28 02:09:06]<6>: A Client receiving a response ...
-  [2021-05-28 02:09:06]<6>: Response from a server
-  [2021-05-28 02:09:06]<6>: sucess
-  [2021-05-28 02:09:12]<6>: A Client sending a request ...
-  [2021-05-28 02:09:12]<6>: Request sent to a server
-  [2021-05-28 02:09:12]<6>: A Client receiving a response ...
-  [2021-05-28 02:09:12]<6>: Response from a server
-  [2021-05-28 02:09:12]<6>: sucess
-  [2021-05-28 02:09:18]<6>: A Client sending a request ...
-  [2021-05-28 02:09:18]<6>: Request sent to a server
-  [2021-05-28 02:09:18]<6>: A Client receiving a response ...
-  [2021-05-28 02:09:18]<6>: Response from a server
-  [2021-05-28 02:09:18]<6>: sucess
-  [2021-05-28 02:09:24]<6>: A Client sending a request ...
-  [2021-05-28 02:09:24]<6>: Request sent to a server
-  [2021-05-28 02:09:24]<6>: A Client receiving a response ...
-  [2021-05-28 02:09:24]<6>: Response from a server
-  [2021-05-28 02:09:24]<6>: sucess
-  [2021-05-28 02:09:30]<6>: A Client sending a request ...
-  [2021-05-28 02:09:30]<6>: Request sent to a server
-  [2021-05-28 02:09:30]<6>: A Client receiving a response ...
-  [2021-05-28 02:09:30]<6>: Response from a server
-  [2021-05-28 02:09:30]<6>: sucess
-  ```
-   
+./Client [options]
+[options]
+[M]	-i [Server IP]			Server to connect to digit IP address.
+[M]	-p [Server Port Number]		Server to connect to Port Number.
+[O]	-h 				Show usage
+
+* Sample client log( `/bin/client -p 50000 -i 192.168.0.185`)
+```
+Client initializing ...
+Creating a client socket ...
+A client socket created
+Client initialized
+Connecting to a server ...
+A client connected to a server
+Please insert your name:
+zouma
+Customer name is [zouma]
+A Client sending a request ...
+Request sent to a server
+Please insert the number of product type
+2
+Total number of product type is [2]
+A Client sending a request ...
+Request sent to a server
+Insert Product name:
+mango
+Product name is [mango]
+A Client sending a request ...
+Request sent to a server
+Insert Product[mango] quantity:
+10
+A Client sending a request ...
+Request sent to a server
+Product[mango] quantity is [10]
+Insert Product name:
+orange
+Product name is [orange]
+A Client sending a request ...
+Request sent to a server
+Insert Product[orange] quantity:
+2
+A Client sending a request ...
+Request sent to a server
+Product[orange] quantity is [2]
+A Client closing a connexion ...
+Connexion with a server closed
+```
+3. Back to the initial file structure configuration
+ ```sh
+  rm -r bin build 
+ ```
       
    
 <!-- ROADMAP -->
@@ -319,7 +278,7 @@ Distributed under the MIT License. See `LICENSE` for more information.
 
 Adama Zouma - <!-- [@your_twitter](https://twitter.com/your_username) -->- stargue49@gmail.com
 
-Project Link: [https://github.com/zoumson/Multi-ClientServer](https://github.com/zoumson/Multi-ClientServer.git)
+Project Link: [https://github.com/zoumson/MuliThreadingManageCompanyProduct(https://github.com/zoumson/MuliThreadingManageCompanyProduct.git)
 
 
 
