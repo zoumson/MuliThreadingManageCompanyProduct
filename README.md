@@ -51,22 +51,18 @@
 
 <!-- [![Product Name Screen Shot][product-screenshot]](https://example.com) -->
 
-The primary intention of writing this project is to give an overview of how one can entertain multiple client requests to a server in parallel. 
-In this project a TCP/IP server is created. The server can receive multiple client requests at the same time and entertain each client request 
-in parallel so that no client will have to wait for server time. 
-
-The TCP/IP server has been designed with multi-threading for parallel processing.
-The server itself is defined as a class. There is another class called myThread that handles the multi-threading mecanism.
-A special processor derived class (ProcessSingleClient) to just handle a client that sends a clock time information to the server.
-
-* First of all, the server is initialized then bound to a specific port number
-* Next, the server starts listenning to a new connexion
-* A new accepted client will get a thread allocated to it and start exhanging with the server
-
-* Parallelly the server will still be listenng to a new connexion
-
-* Logs are generated for both server and client using the boost log library
-* Also the command to pass the option to the main function use the boost program_options library
+The goal of this mini-project is to develop a client server application
+allowing the stock management of a company. Each customer connects
+to the server, enter the name of the product (s) ordered, the quantities,
+and his name. The server displays the price of the order, and creates a file
+whose name is unique (for example created according to the date) which
+contains the order data. The database is stored in
+a text file in which each line contains a product name (without
+space), and a unit price. Communication between customers and
+server is done through sockets. The processing by the server of
+Customer orders are done through threads; at each request
+client is associated with a thread. Customer order history must
+be saved in a text file.
 
 A list of commonly used resources that I find helpful are listed in the acknowledgements.
 
