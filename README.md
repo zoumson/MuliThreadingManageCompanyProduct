@@ -62,8 +62,7 @@ contains the order data.
 * The database is stored in a text file in which each line contains a product name (without
 space), and a unit price. 
 * Communication between customers and server is done through sockets. 
-* The processing by the server of Customer orders are done through threads; at each request
-* client is associated with a thread. 
+* The processing by the server of Customer orders are done through threads; at each request client is associated with a thread. 
 * Customer order history must be saved in a text file.
 
 A list of commonly used resources that I find helpful are listed in the acknowledgements.
