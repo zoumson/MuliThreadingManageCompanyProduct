@@ -68,8 +68,6 @@ space), and a unit price.
 A list of commonly used resources that I find helpful are listed in the acknowledgements.
 ### Built With
 
-
-* [boost](https://boost.org/)
 * [cmake](https://cmake.org/)
 * [gnu](https://www.gnu.org/)
 
@@ -87,7 +85,7 @@ To get a local copy up and running follow these simple steps.
 ### Folders
 
 * [include/](include/): c++ declarations.
-* [resource/](resource/): images.
+* [resource/](resource/): database.
 * [src/](src/): c++ definitions.
 
 
@@ -130,7 +128,7 @@ This is an example of how to list things you need to use the software and how to
    ```sh
    mkdir build &&  mkdir bin 
    ```
-5. Generate the executables and move them to `bin`
+4. Generate the executables and move them to `bin`
    ```sh
    cd build && cmake .. && make -j4 && cd ..
    ```
@@ -150,7 +148,7 @@ Command line arguments
 [M]	-p [Server Port Number]		Server to connect Port Number.
 [O]	-h 				Show usage
 ```
-* Dafault server port number: random available port from host, default maximum client is 5
+* Default server port number: random available port from host, default maximum client is 5
    ```sh
    ./bin/server 
    ```
@@ -169,7 +167,7 @@ Command line arguments
 [2021-07-19 02:41:16][Client 1] Product name is [you]
 [2021-07-19 02:41:21][Client 1] Product quantity is [2]
 ```
-* Server historic for all client: `history.txt`
+* Server historry for all clients: `history.txt`
  ```
 [2021-07-19 02:40:53][Client 1] Name is [zouma]
 [2021-07-19 02:41:00][Client 1] number of product type is [2]
